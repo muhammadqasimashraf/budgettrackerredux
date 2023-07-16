@@ -1,19 +1,15 @@
-const setEmail = (email) => {
-  // return {
-  //   type: "SET_EMAIL",
-  //   payload: email,
-  // };
-  console.log("Email inside action is ", email);
+export const loginAction = (email, password) => {
+  return {
+    type: "LOGIN",
+    payload: {
+      email,
+      password,
+    },
+  };
 };
 
-const setPassword = (password) => {
-  // return {
-  //   type: "SET_PASSWORD",
-  //   payload: password,
-  // };
-  console.log("password inside action is ", password);
-};
-
-export const userAction = {
-  setEmail,
+export const logoutAction = () => {
+  return {
+    type: "LOGOUT",
+  };
 };

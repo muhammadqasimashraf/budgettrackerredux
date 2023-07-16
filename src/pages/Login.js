@@ -3,8 +3,10 @@ import { Card, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
+import { userData } from "../credentials";
 import "../../src/App.css";
-import { userAction } from "../actions/UserActions";
+import { loginAction } from "../actions/UserActions";
+import { logoutAction } from "../actions/UserActions";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -24,19 +26,21 @@ const Login = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const saveData = (email) => {
-    dispatch(userAction.setEmail(email));
-  };
-
   const handleSubmit = (event, values) => {
     console.log(event);
     console.log(values);
-    // event.preventDefault();
-    // // Perform login logic here
-    // console.log("Email:", email);
-    // // console.log("Password:", password);
-    // saveData(email);
-    // dispatch(userAction(() => setPassword(password)));
+
+    const user = userData.find(
+      (user) => user.email === user.email && user.password === user.password
+    );
+
+    if (user) {
+      // Dispatch the login action
+      dispatch(loginAction(user.email, user.password));
+      //  setErrorMessage("");
+    } else {
+      //  setErrorMessage("Invalid email or password");
+    }
   };
 
   return (

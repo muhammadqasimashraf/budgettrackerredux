@@ -1,12 +1,4 @@
-export default {
-  credentials: [
-    {
-      email: "qasim@gmail.com",
-      password: 123,
-    },
-    {
-      email: "awais@gmail.com",
-      password: 1234,
-    },
-  ],
+export default userData = {
+  email: "qasim@gmail.com",
+  password: 123,
 };
