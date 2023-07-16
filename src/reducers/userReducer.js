@@ -9,9 +9,8 @@ const userReducer = (state = initialState, action) => {
     case "LOGIN":
       return {
         ...state,
+        ...action.payload,
         isLoggedIn: true,
-        email: action.payload.email,
-        password: action.payload.password,
       };
     case "LOGOUT":
       return {

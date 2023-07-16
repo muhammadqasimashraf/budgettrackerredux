@@ -3,7 +3,7 @@ import { Card, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
-import { userData } from "../credentials";
+import userData from "../credentials";
 import "../../src/App.css";
 import { loginAction } from "../actions/UserActions";
 import { logoutAction } from "../actions/UserActions";
@@ -22,21 +22,24 @@ const Login = () => {
   //   // 👇️ navigate to /contacts
   //   navigate("/dashboard");
   // };
+
   const onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (event, values) => {
+    event.preventDefault();
     console.log(event);
-    console.log(values);
-
-    const user = userData.find(
-      (user) => user.email === user.email && user.password === user.password
+    // console.log(values);
+    console.log(user);
+    const newuser = userData.find(
+      (elem) =>
+        elem.email === user.email && elem.password.toString() === user.password
     );
-
-    if (user) {
+    console.log(newuser);
+    if (newuser) {
       // Dispatch the login action
-      dispatch(loginAction(user.email, user.password));
+      dispatch(loginAction(newuser));
       //  setErrorMessage("");
     } else {
       //  setErrorMessage("Invalid email or password");
