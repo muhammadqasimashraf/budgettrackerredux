@@ -1,15 +1,25 @@
 const initialState = {
-  email: "qasim@gmail.com",
-  password: "qasim123",
-  auth: false,
+  isLoggedIn: false,
+  email: "",
+  password: "",
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_EMAIL":
-      return { ...state, userName: action.payload };
-    case "SET_PASSWORD":
-      return { ...state, email: action.payload };
+    case "LOGIN":
+      return {
+        ...state,
+        isLoggedIn: true,
+        email: action.payload.email,
+        password: action.payload.password,
+      };
+    case "LOGOUT":
+      return {
+        ...state,
+        isLoggedIn: false,
+        email: "",
+        password: "",
+      };
     default:
       return state;
   }
