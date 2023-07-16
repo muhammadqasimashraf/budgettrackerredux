@@ -1,13 +1,19 @@
-export const setUserName = (userName) => {
-  return {
-    type: "SET_USERNAME",
-    payload: userName,
-  };
+const setEmail = (email) => {
+  // return {
+  //   type: "SET_EMAIL",
+  //   payload: email,
+  // };
+  console.log("Email inside action is ", email);
 };
 
-export const setEmail = (email) => {
-  return {
-    type: "SET_EMAIL",
-    payload: email,
-  };
+const setPassword = (password) => {
+  // return {
+  //   type: "SET_PASSWORD",
+  //   payload: password,
+  // };
+  console.log("password inside action is ", password);
+};
+
+export const userAction = {
+  setEmail,
 };

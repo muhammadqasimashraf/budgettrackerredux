@@ -4,35 +4,39 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import "../../src/App.css";
+import { userAction } from "../actions/UserActions";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = user;
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.userReducer);
   console.log("userStae", userState);
-  const navigate = useNavigate();
+
   // const navigateToDashboard = () => {
   //   // 👇️ navigate to /contacts
   //   navigate("/dashboard");
   // };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const onInputChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const saveData = (email) => {
+    dispatch(userAction.setEmail(email));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Perform login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
-    if (userState.email === email) {
-      navigate("/dashboard");
-    }
+  const handleSubmit = (event, values) => {
+    console.log(event);
+    console.log(values);
+    // event.preventDefault();
+    // // Perform login logic here
+    // console.log("Email:", email);
+    // // console.log("Password:", password);
+    // saveData(email);
+    // dispatch(userAction(() => setPassword(password)));
   };
 
   return (
@@ -49,7 +53,11 @@ const Login = () => {
               <Form.Control
                 type="email"
                 value={email}
-                onChange={handleEmailChange}
+                name="email"
+                onChange={(e) => {
+                  //  console.log("e in email", e);
+                  onInputChange(e);
+                }}
                 className="shadow-none"
               />
             </Form.Group>
@@ -58,7 +66,8 @@ const Login = () => {
               <Form.Control
                 type="password"
                 value={password}
-                onChange={handlePasswordChange}
+                name="password"
+                onChange={(e) => onInputChange(e)}
                 className="shadow-none"
               />
             </Form.Group>
