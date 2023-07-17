@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import userData from "../credentials";
+import ErrorMessage from "../components/ErrorMessage";
 import "../../src/App.css";
 import { loginAction } from "../actions/UserActions";
 import { logoutAction } from "../actions/UserActions";
 
 const Login = () => {
+  const [errorMessage, setErrorMessage] = React.useState("");
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -16,7 +19,7 @@ const Login = () => {
   const { email, password } = user;
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.userReducer);
-  console.log("userStae", userState);
+  console.log("userState Email is ", userState.email);
 
   // const navigateToDashboard = () => {
   //   // 👇️ navigate to /contacts
@@ -41,8 +44,11 @@ const Login = () => {
       // Dispatch the login action
       dispatch(loginAction(newuser));
       //  setErrorMessage("");
+      console.log("The user is logged in ");
+      navigate("/dashboard");
     } else {
       //  setErrorMessage("Invalid email or password");
+      setErrorMessage("Invalid Eamil or UserName!");
     }
   };
 
@@ -84,6 +90,9 @@ const Login = () => {
             >
               Login
             </button>
+            {errorMessage && (
+              <div className="error text-danger"> {errorMessage} </div>
+            )}
           </Form>
         </Card.Body>
       </Card>
