@@ -6,11 +6,18 @@ import { addBudget } from "../actions/budgetActions";
 import budgetReducer from "../reducers/budgetReducer";
 
 const AddBudget = ({ total, budgetList, addBudget }) => {
-  console.log(budgetList, "BudgetList is ");
+  console.log(
+    budgetList,
+    "BudgetList is ",
+    total,
+    "total",
+    addBudget,
+    "addbudget"
+  );
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [budget, setBudget] = useState({ id: null, title: "", amount: 0 });
+  const [budget, setBudget] = useState({ title: "", amount: 0 });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,12 +57,14 @@ const AddBudget = ({ total, budgetList, addBudget }) => {
               </tr>
             </thead>
             <tbody>
-              {budgetList.map((budget) => (
-                <tr key={budget.id}>
-                  <td>{budget.title}</td>
-                  <td>{budget.amount}</td>
-                </tr>
-              ))}
+              {
+                //   budgetList.map((budget) => (
+                //   <tr key={budget.id}>
+                //     <td>{budget.title}</td>
+                //     <td>{budget.total}</td>
+                //   </tr>
+                // ))
+              }
             </tbody>
           </table>
         </div>
@@ -74,7 +83,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addBudget: (budget) => dispatch(budgetReducer(budget)),
+    addBudget: (budget) => dispatch(addBudget(budget)),
   };
 };
 

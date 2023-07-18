@@ -21,11 +21,6 @@ const Login = () => {
   const userState = useSelector((state) => state.userReducer);
   console.log("userState Email is ", userState.email);
 
-  // const navigateToDashboard = () => {
-  //   // 👇️ navigate to /contacts
-  //   navigate("/dashboard");
-  // };
-
   const onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -41,13 +36,11 @@ const Login = () => {
     );
     console.log(newuser);
     if (newuser) {
-      // Dispatch the login action
       dispatch(loginAction(newuser));
-      //  setErrorMessage("");
+
       console.log("The user is logged in ");
       navigate("/dashboard");
     } else {
-      //  setErrorMessage("Invalid email or password");
       setErrorMessage("Invalid Eamil or UserName!");
     }
   };

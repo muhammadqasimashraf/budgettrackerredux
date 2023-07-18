@@ -8,17 +8,11 @@ const initialState = {
 };
 
 const budgetReducer = (state = initialState, action) => {
-  console.log(
-    "action payload",
-    action.payload,
-    "action payload amount",
-    action.payload
-  );
   console.log("state in reducer is", state, "action is ", action);
   switch (action.type) {
     case ADD_BUDGET:
       const newBudgetList = [...state.budgetList, action.payload];
-      const newTotal = state.total + action.payload;
+      const newTotal = state.total + action.payload.amount;
       return {
         ...state,
         budgetList: newBudgetList,
