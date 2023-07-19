@@ -1,46 +1,44 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import AddEditBudgetForm from "../components/AddEditForm";
 import { addBudget } from "../actions/budgetActions";
 import budgetReducer from "../reducers/budgetReducer";
 
-const AddBudget = ({ total, budgetList, addBudget }) => {
-  console.log(
-    budgetList,
-    "BudgetList is ",
-    total,
-    "total",
-    addBudget,
-    "addbudget"
-  );
+const AddBudget = () => {
+  const list = useSelector((state) => state?.budgetReducer?.budgetList);
+  const dispatch = useDispatch();
+  console.log("state", list);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [budget, setBudget] = useState({ title: "", amount: 0 });
+  const [budget, setBudget] = useState({ title: "", amount: 0, total: 0 });
+  const [total, setTotal] = useState(0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBudget({ ...budget, [name]: value });
   };
 
+  console.log("budget", budget);
   const handleSubmit = (event) => {
     event.preventDefault();
-    addBudget(budget);
+    // addBudget(budget);
     handleClose();
+    dispatch(addBudget(budget));
+    setBudget({ title: "", amount: "" });
   };
 
   return (
     <div className="container mt-5">
+      <div className="topBtn">
+        <Button variant="dark" onClick={handleShow} className="mb-3 ">
+          Add Budget
+        </Button>
+      </div>
+
       <div className="row justify-content-center">
-        <div className="col-md-6">
-          <h2 className="mb-4">Budget Tracker</h2>
-          <div>Total budget is: {total}</div>
-        </div>
-        <div className="col-md-6">
-          <Button variant="dark" onClick={handleShow} className="mb-3">
-            Add Budget
-          </Button>
+        <div className="col-md-12">
           {show && (
             <AddEditBudgetForm
               budget={budget}
@@ -49,22 +47,33 @@ const AddBudget = ({ total, budgetList, addBudget }) => {
               handleChange={handleChange}
             />
           )}
-          <table>
+          <table class="table">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Amount</th>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Amount</th>
               </tr>
             </thead>
             <tbody>
-              {
-                //   budgetList.map((budget) => (
-                //   <tr key={budget.id}>
-                //     <td>{budget.title}</td>
-                //     <td>{budget.total}</td>
-                //   </tr>
-                // ))
-              }
+              {list?.map((budget, index) => {
+                console.log("budget in buget", budget);
+                return (
+                  <tr key={budget.id}>
+                    <td className="serialNo">{index}</td>
+                    <td className="mr-2">{budget?.budget?.title}</td>
+                    <td>{budget?.budget?.amount}</td>
+                    <td>{budget?.budget?.total}</td>
+                    <td>
+                      <Button variant="dark" className="editBtn">
+                        Edit
+                      </Button>
+
+                      <Button variant="dark">Delete</Button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -73,18 +82,4 @@ const AddBudget = ({ total, budgetList, addBudget }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  console.log(state, "Inside proplist");
-  return {
-    total: state.total,
-    budgetList: state.budgetList,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addBudget: (budget) => dispatch(addBudget(budget)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddBudget);
+export default AddBudget;

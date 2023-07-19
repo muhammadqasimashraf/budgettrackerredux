@@ -6,7 +6,7 @@
   height: 30px;
 }
 body {
-  color: red !important;
+  color: rgba(0, 0, 0, 0.623) !important;
 }
 .navbar {
   background-color: #e8c258 !important;
@@ -27,4 +27,10 @@ body {
 .navbar-nav .nav-link.active {
   background-color: #e9ecef;
   color: #fff;
+}
+.topBtn {
+  text-align: right;
+}
+.editBtn {
+  margin-right: 1rem;
 }

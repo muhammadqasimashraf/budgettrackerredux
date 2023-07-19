@@ -37,6 +37,16 @@ const AddEditBudgetForm = ({
               onChange={handleChange}
             />
           </Form.Group>
+          <Form.Group controlId="formAmount">
+            <Form.Label>Credit</Form.Label>
+            <Form.Control
+              type="number"
+              name="credit"
+              placeholder="Enter Credit Amount Amount"
+              value={budget.credit}
+              onChange={handleChange}
+            />
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
