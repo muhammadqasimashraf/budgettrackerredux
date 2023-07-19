@@ -27,23 +27,24 @@ const AddEditBudgetForm = ({
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="formAmount">
-            <Form.Label>Budget Amount</Form.Label>
-            <Form.Control
-              type="number"
-              name="amount"
-              placeholder="Enter Budget Amount"
-              value={budget.amount}
-              onChange={handleChange}
-            />
-          </Form.Group>
+
           <Form.Group controlId="formAmount">
             <Form.Label>Credit</Form.Label>
             <Form.Control
               type="number"
               name="credit"
-              placeholder="Enter Credit Amount Amount"
+              placeholder="Enter Credit Amount"
               value={budget.credit}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formAmount">
+            <Form.Label>Debit</Form.Label>
+            <Form.Control
+              type="number"
+              name="debit"
+              placeholder="Enter Credit Amount"
+              value={budget.debit}
               onChange={handleChange}
             />
           </Form.Group>

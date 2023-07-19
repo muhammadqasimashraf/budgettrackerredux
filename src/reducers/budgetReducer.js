@@ -6,6 +6,7 @@ const initialState = {
   budgetList: [],
   total: 0,
   credit: 0,
+  debit: 0,
 };
 
 const budgetReducer = (state = initialState, action) => {
@@ -16,12 +17,15 @@ const budgetReducer = (state = initialState, action) => {
       const newBudgetList = [...state.budgetList, action.payload];
       const newTotal = state.total + action.payload;
       const newCredit = state.credit + action.payload;
+      const newDebit = state.debit + action.payload;
       return {
         ...state,
         budgetList: newBudgetList,
         total: newTotal,
         credit: newCredit,
+        debit: newDebit,
       };
+
     default:
       return state;
   }
