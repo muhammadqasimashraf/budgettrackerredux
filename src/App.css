@@ -34,13 +34,12 @@ body {
 .editBtn {
   margin-right: 1rem;
 }
-.outerContainer {
-}
+
 .totalAmount {
   width: 20%;
   height: 20%;
   align-items: right;
-  position: fixed;
+  position: absolute;
   top: 70%;
   left: 75%;
   background-color: rgba(0, 0, 0, 0.774);
@@ -106,6 +105,11 @@ body {
   background-color: #fb8332 !important;
   border: none !important;
 }
-.table {
+table {
+  color: #fb8332 !important;
+}
+tr,
+td,
+th {
   color: #fb8332 !important;
 }

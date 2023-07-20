@@ -1,7 +1,5 @@
 // budgetReducer.js
 
-//import { ADD_BUDGET } from "../actions/BudgetActiontypes";
-
 const initialState = {
   budgetList: [],
   total: 0,
@@ -15,15 +13,29 @@ const budgetReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_BUDGET":
       const newBudgetList = [...state.budgetList, action.payload];
-      const newTotal = state.total + action.payload;
-      const newCredit = state.credit + action.payload;
-      const newDebit = state.debit + action.payload;
+      const newTotal = state.total + action.payload.amount;
+      const newCredit = state.credit + action.payload.credit;
+      const newDebit = state.debit + action.payload.debit;
       return {
         ...state,
         budgetList: newBudgetList,
         total: newTotal,
         credit: newCredit,
         debit: newDebit,
+      };
+    case "DELETE_BUDGET":
+      const updatedBudgetList = state.budgetList.filter(
+        (budget, id) => budget.id !== action.payload.id
+      );
+      // const updatedTotal = state.total - action.payload.amount;
+      // const updatedCredit = state.credit - action.payload.credit;
+      // const updatedDebit = state.debit - action.payload.debit;
+      return {
+        ...state,
+        budgetList: updatedBudgetList,
+        total: updatedTotal,
+        credit: updatedCredit,
+        debit: updatedDebit,
       };
 
     default:

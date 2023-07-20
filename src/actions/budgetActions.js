@@ -5,3 +5,15 @@ export const addBudget = (budget) => {
     payload: { budget },
   };
 };
+export const deleteBudget = (key) => {
+  return {
+    type: "DELETE_BUDGET",
+    payload: { key },
+  };
+};
+export const editBudget = (budget) => {
+  return {
+    type: "EDIT_BUDGET",
+    payload: { budget },
+  };
+};

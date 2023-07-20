@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import AddEditBudgetForm from "../components/AddEditForm";
 import { addBudget } from "../actions/budgetActions";
 import budgetReducer from "../reducers/budgetReducer";
+import EditBudget from "./EditBudget";
+import { deleteBudget } from "../actions/budgetActions";
 
 const AddBudget = () => {
   const list = useSelector((state) => state?.budgetReducer?.budgetList);
@@ -43,6 +45,9 @@ const AddBudget = () => {
     dispatch(addBudget(budget));
 
     setBudget({ title: "", amount: 0, credit: 0, debit: 0, total: 0 });
+  };
+  const handleDelete = (event) => {
+    dispatch(deleteBudget(budget));
   };
 
   return (
@@ -85,12 +90,14 @@ const AddBudget = () => {
                   <tr key={budget.id}>
                     <td className="serialNo">{index + 1}</td>
                     <td className="mr-2">{budget?.budget?.title}</td>
-                    <td className="bg-danger">{budget?.budget?.debit}</td>
+                    <td className="bg-success">{budget?.budget?.debit}</td>
                     <td className="bg-danger">{budget?.budget?.credit}</td>
 
                     <td>
                       <Button className="editBtn btn">Edit</Button>
-                      <Button className="btn">Delete</Button>
+                      <Button className="btn" onClick={handleDelete}>
+                        Delete
+                      </Button>
                     </td>
                   </tr>
                 </tbody>
@@ -102,10 +109,10 @@ const AddBudget = () => {
       <div className="totalAmount">
         <div className="ml-2">
           <p className="ml-2">Balance is</p>
-          {list.map((item) => {
-            return (budgetTotal = +item.budget.debit + budgetTotal);
-          })}
-          // {list?.reduce((acc, curr) => {}, 0)}
+
+          {list?.reduce((acc, curr) => {
+            return +curr.budget.debit + acc;
+          }, 0)}
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@ const AddEditBudgetForm = ({
       </Modal.Header>
       <Modal.Body>
         <Button
-          className="btn"
+          className="btn "
           onClick={() => {
             setIsShowForm(true);
             setIsDebit(true);
@@ -32,7 +32,7 @@ const AddEditBudgetForm = ({
           Debit
         </Button>
         <Button
-          className="btn"
+          className="btn ms-2"
           onClick={() => {
             setIsShowForm(true);
             setIsCredit(true);
@@ -52,6 +52,7 @@ const AddEditBudgetForm = ({
                 autoFocus
                 value={budget.title}
                 onChange={handleChange}
+                className="shadow-none"
               />
             </Form.Group>
 
@@ -64,6 +65,7 @@ const AddEditBudgetForm = ({
                   placeholder="Enter Credit Amounte y"
                   value={budget.credit}
                   onChange={handleChange}
+                  className="shadow-none"
                 />
               </Form.Group>
             )}
@@ -76,6 +78,7 @@ const AddEditBudgetForm = ({
                   placeholder="Enter Credit Amount"
                   value={budget.debit}
                   onChange={handleChange}
+                  className="shadow-none"
                 />
               </Form.Group>
             )}
