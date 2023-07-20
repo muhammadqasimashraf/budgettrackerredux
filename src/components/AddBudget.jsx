@@ -11,7 +11,15 @@ const AddBudget = () => {
   const dispatch = useDispatch();
   console.log("state", list);
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const [isDebit, setIsDebit] = useState(false);
+  const [isCredit, setIsCredit] = useState(false);
+  const [isShowForm, setIsShowForm] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+    setIsShowForm(false);
+    setIsCredit(false);
+    setIsDebit(false);
+  };
   const handleShow = () => setShow(true);
   const [budget, setBudget] = useState({
     title: "",
@@ -40,7 +48,7 @@ const AddBudget = () => {
   return (
     <div className="container outerContainer mt-5">
       <div className="topBtn">
-        <Button variant="dark" onClick={handleShow} className="mb-3 ">
+        <Button className="btn" onClick={handleShow} className="mb-3 ">
           Add Budget
         </Button>
       </div>
@@ -53,48 +61,36 @@ const AddBudget = () => {
               handleClose={handleClose}
               handleSubmit={handleSubmit}
               handleChange={handleChange}
+              isDebit={isDebit}
+              isCredit={isCredit}
+              isShowForm={isShowForm}
+              setIsCredit={setIsCredit}
+              setIsDebit={setIsDebit}
+              setIsShowForm={setIsShowForm}
             />
           )}
-          <table class="table">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
-
-                <th scope="col">Budget</th>
+                <th scope="col">Debit</th>
+                <th scope="col">Credit</th>
               </tr>
             </thead>
 
             {list?.map((budget, index) => {
-              console.log("budget in buget", budget);
-
               return (
                 <tbody>
                   <tr key={budget.id}>
-                    <td className="serialNo">{index}</td>
+                    <td className="serialNo">{index + 1}</td>
                     <td className="mr-2">{budget?.budget?.title}</td>
-
+                    <td className="bg-danger">{budget?.budget?.debit}</td>
                     <td className="bg-danger">{budget?.budget?.credit}</td>
 
                     <td>
-                      <Button variant="dark" className="editBtn">
-                        Edit
-                      </Button>
-
-                      <Button variant="dark">Delete</Button>
-                    </td>
-                  </tr>
-                  <tr key={budget.id}>
-                    <td className="serialNo">{index}</td>
-                    <td className="mr-2">{budget?.budget?.title}</td>
-
-                    <td className="bg-success">{budget?.budget?.debit}</td>
-                    <td>
-                      <Button variant="dark" className="editBtn">
-                        Edit
-                      </Button>
-
-                      <Button variant="dark">Delete</Button>
+                      <Button className="editBtn btn">Edit</Button>
+                      <Button className="btn">Delete</Button>
                     </td>
                   </tr>
                 </tbody>
@@ -109,6 +105,7 @@ const AddBudget = () => {
           {list.map((item) => {
             return (budgetTotal = +item.budget.debit + budgetTotal);
           })}
+          // {list?.reduce((acc, curr) => {}, 0)}
         </div>
       </div>
     </div>
