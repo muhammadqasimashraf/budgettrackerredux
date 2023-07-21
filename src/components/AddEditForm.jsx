@@ -17,9 +17,7 @@ const AddEditBudgetForm = ({
 }) => {
   return (
     <Modal show={true} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>{budget.id ? "Edit Budget" : "Add Budget"}</Modal.Title>
-      </Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
         <Button
           className="btn "

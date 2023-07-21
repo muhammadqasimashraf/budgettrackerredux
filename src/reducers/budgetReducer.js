@@ -16,6 +16,7 @@ const budgetReducer = (state = initialState, action) => {
       const newTotal = state.total + action.payload.amount;
       const newCredit = state.credit + action.payload.credit;
       const newDebit = state.debit + action.payload.debit;
+
       return {
         ...state,
         budgetList: newBudgetList,
@@ -33,9 +34,17 @@ const budgetReducer = (state = initialState, action) => {
       return {
         ...state,
         budgetList: updatedBudgetList,
-        total: updatedTotal,
-        credit: updatedCredit,
-        debit: updatedDebit,
+        // total: updatedTotal,
+        // credit: updatedCredit,s
+        // debit: updatedDebit,
+      };
+    case "EDIT_BUDGET":
+      let budgetList = state.budgetList.filter(
+        (budget) => budget.id !== action.payload.id
+      );
+      return {
+        ...state,
+        budgetList: [...budgetList, action.payload.budget],
       };
 
     default:

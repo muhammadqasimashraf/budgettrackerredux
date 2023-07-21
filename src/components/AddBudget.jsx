@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import AddEditBudgetForm from "../components/AddEditForm";
-import { addBudget } from "../actions/budgetActions";
-import budgetReducer from "../reducers/budgetReducer";
-import EditBudget from "./EditBudget";
-import { deleteBudget } from "../actions/budgetActions";
+import { addBudget, deleteBudget, editBudget } from "../actions/budgetActions";
 
 const AddBudget = () => {
   const list = useSelector((state) => state?.budgetReducer?.budgetList);
@@ -26,8 +23,8 @@ const AddBudget = () => {
   const [budget, setBudget] = useState({
     title: "",
     amount: 0,
-    credit: 0,
     debit: 0,
+    credit: 0,
   });
   const [total, setTotal] = useState(0);
   let budgetTotal = 0;
@@ -40,20 +37,18 @@ const AddBudget = () => {
   console.log("budget", budget);
   const handleSubmit = (event) => {
     event.preventDefault();
-    // addBudget(budget);
     handleClose();
     dispatch(addBudget(budget));
-
-    setBudget({ title: "", amount: 0, credit: 0, debit: 0, total: 0 });
+    setBudget({ title: "", amount: 0, credit: 0, debit: 0 });
   };
-  const handleDelete = (event) => {
-    dispatch(deleteBudget(budget));
+  const handleEdit = (id) => {
+    dispatch(editBudget(id));
   };
 
   return (
     <div className="container outerContainer mt-5">
       <div className="topBtn">
-        <Button className="btn" onClick={handleShow} className="mb-3 ">
+        <Button className="btn" onClick={handleShow} className="mb-3">
           Add Budget
         </Button>
       </div>
@@ -86,18 +81,20 @@ const AddBudget = () => {
 
             {list?.map((budget, index) => {
               return (
-                <tbody>
-                  <tr key={budget.id}>
+                <tbody key={budget.id}>
+                  <tr>
                     <td className="serialNo">{index + 1}</td>
-                    <td className="mr-2">{budget?.budget?.title}</td>
-                    <td className="bg-success">{budget?.budget?.debit}</td>
-                    <td className="bg-danger">{budget?.budget?.credit}</td>
-
+                    <td className="mr-2">{budget.budget.title}</td>
+                    <td className="bg-success">{budget.budget.debit}</td>
+                    <td className="bg-danger">{budget.budget.credit}</td>
                     <td>
-                      <Button className="editBtn btn">Edit</Button>
-                      <Button className="btn" onClick={handleDelete}>
-                        Delete
+                      <Button
+                        className="editBtn btn"
+                        onClick={handleEdit(budget.id)}
+                      >
+                        Edit
                       </Button>
+                      <Button className="btn">Delete</Button>
                     </td>
                   </tr>
                 </tbody>
@@ -109,9 +106,8 @@ const AddBudget = () => {
       <div className="totalAmount">
         <div className="ml-2">
           <p className="ml-2">Balance is</p>
-
           {list?.reduce((acc, curr) => {
-            return +curr.budget.debit + acc;
+            return +curr.debit + acc;
           }, 0)}
         </div>
       </div>
